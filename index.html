@@ -11,18 +11,30 @@ body{
     margin:0;
     font-family: Arial, sans-serif;
     color:white;
-
-    /* HIER gebeurt de magie */
-    background-image: url("foto.jpg");
-    background-size: cover;        /* vult het hele scherm */
-    background-position: center;   /* altijd mooi gecentreerd */
-    background-repeat: no-repeat;
     height:100vh;
+    overflow:hidden;
 }
 
-/* donkere overlay zodat tekst leesbaar blijft */
+/* 2 lagen voor crossfade (zachte overgang) */
+.bg{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    transition:opacity 2s ease-in-out;
+    z-index:-2;
+}
+
+#bg1{ opacity:1; }
+#bg2{ opacity:0; }
+
+/* lichtere overlay */
 .overlay{
-    background: rgba(0,0,0,0.20);
+    background: rgba(0,0,0,0.25);
     height:100vh;
     display:flex;
     flex-direction:column;
@@ -32,13 +44,17 @@ body{
 }
 
 h1{
-    font-size:60px;
+    font-size:64px;
     margin:0;
+    letter-spacing:4px;
+    text-shadow:0 4px 20px rgba(0,0,0,0.8);
 }
 
 p{
     font-size:22px;
-    opacity:0.9;
+    margin-top:10px;
+    opacity:0.95;
+    text-shadow:0 2px 12px rgba(0,0,0,0.8);
 }
 
 </style>
@@ -46,9 +62,55 @@ p{
 
 <body>
 
+<!-- achtergrond lagen -->
+<div id="bg1" class="bg"></div>
+<div id="bg2" class="bg"></div>
+
 <div class="overlay">
     <h1>Q1 2027</h1>
 </div>
+
+<script>
+const images = [
+  "foto1.jpg",
+  "foto2.jpg",
+  "foto3.jpg"
+];
+
+let index = 0;
+let showingFirst = true;
+
+const bg1 = document.getElementById("bg1");
+const bg2 = document.getElementById("bg2");
+
+function changeBackground(){
+
+    let nextImage = images[index];
+
+    if(showingFirst){
+        bg2.style.backgroundImage = "url('" + nextImage + "')";
+        bg2.style.opacity = 1;
+        bg1.style.opacity = 0;
+    }else{
+        bg1.style.backgroundImage = "url('" + nextImage + "')";
+        bg1.style.opacity = 1;
+        bg2.style.opacity = 0;
+    }
+
+    showingFirst = !showingFirst;
+
+    index++;
+    if(index >= images.length){
+        index = 0;
+    }
+}
+
+/* eerste afbeelding meteen laden */
+bg1.style.backgroundImage = "url('" + images[0] + "')";
+
+/* wissel elke 6 seconden */
+setInterval(changeBackground, 6000);
+</script>
 
 </body>
 </html>
