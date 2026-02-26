@@ -15,7 +15,7 @@ body{
     overflow:hidden;
 }
 
-/* 2 lagen voor crossfade (zachte overgang) */
+/* achtergrond lagen voor fade */
 .bg{
     position:fixed;
     top:0;
@@ -32,29 +32,23 @@ body{
 #bg1{ opacity:1; }
 #bg2{ opacity:0; }
 
-/* lichtere overlay */
+/* lichte overlay zodat foto's niet te fel zijn */
 .overlay{
-    background: rgba(0,0,0,0.25);
+    background: rgba(0,0,0,0.10);
     height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
 }
 
-h1{
-    font-size:64px;
-    margin:0;
-    letter-spacing:4px;
-    text-shadow:0 4px 20px rgba(0,0,0,0.8);
-}
-
-p{
-    font-size:22px;
-    margin-top:10px;
+/* tekst in hoek */
+.corner{
+    position: fixed;
+    bottom: 25px;
+    right: 30px;
+    font-size: 34px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: white;
+    text-shadow: 0 5px 20px rgba(0,0,0,0.9);
     opacity:0.95;
-    text-shadow:0 2px 12px rgba(0,0,0,0.8);
 }
 
 </style>
@@ -66,9 +60,11 @@ p{
 <div id="bg1" class="bg"></div>
 <div id="bg2" class="bg"></div>
 
-<div class="overlay">
-    <h1>Q1 2027</h1>
-</div>
+<!-- lichte overlay -->
+<div class="overlay"></div>
+
+<!-- tekst rechtsonder -->
+<div class="corner">Q1 2027</div>
 
 <script>
 const images = [
